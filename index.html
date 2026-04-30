@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamic App Store</title>
+    
+    
+    <link rel="icon" type="image/png" href="fevicon.png">
+<link rel="apple-touch-icon" href="fevicon.png">
+
+
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -17,7 +24,7 @@
 
     <div id="nav-drawer" class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-slate-800 z-50 transform -translate-x-full transition-transform duration-300 shadow-xl border-r dark:border-slate-700">
         <div class="p-5 border-b dark:border-slate-700 flex justify-between items-center">
-            <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400">Islamic Store</span>
+            <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400">App Store</span>
             <button id="close-drawer" class="text-gray-500 text-3xl leading-none">&times;</button>
         </div>
         <ul class="p-4 space-y-2">
@@ -36,7 +43,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400">Islamic Store</div>
+                <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400">App Store</div>
             </div>
             
             <div class="flex items-center justify-end flex-1 ml-4 overflow-hidden h-10 relative">
@@ -66,13 +73,25 @@
     </nav>
 
     <main class="max-w-7xl mx-auto py-8 px-4">
+        
+        
+       
+        <div class="slider-container mb-8 shadow-lg relative w-full aspect-[327/121] overflow-hidden rounded-2xl bg-gray-200 dark:bg-slate-800">
+    <div id="slider-wrapper" class="h-full relative">
+        </div>
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10" id="slider-dots"></div>
+</div>
+
+
+        
+        
         <h2 class="text-xl font-bold mb-6 dark:text-white border-l-4 border-emerald-500 pl-3">সেরা ইসলামিক অ্যাপস</h2>
         <div id="app-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
     </main>
 
     <footer class="bg-white dark:bg-slate-800 border-t dark:border-slate-700 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">Islamic Store</div>
+            <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">App Store</div>
             <p class="text-sm text-gray-500 dark:text-gray-400">বিশুদ্ধ ইসলামিক অ্যাপের একটি নির্ভরযোগ্য প্ল্যাটফর্ম।</p>
             <div class="flex justify-center space-x-6 my-6">
                 <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors">ফেসবুক</a>
