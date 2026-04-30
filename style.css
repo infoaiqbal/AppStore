@@ -57,3 +57,29 @@ body.drawer-open {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* স্লাইডার এনিমেশন */
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1.2s ease;
+    transform: scale(1.05); /* হালকা জুম ইফেক্ট */
+}
+.slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.slider-container {
+    aspect-ratio: 327 / 121 !important; /* এটি নির্দিষ্ট রেশিও নিশ্চিত করবে */
+    width: 100%;
+    height: auto;
+}
+
+/* স্লাইডারের ভেতর ছবি যেন চ্যাপ্টা না হয়ে যায় */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* এটি ছবিকে সুন্দরভাবে ফ্রেমের ভেতরে রাখবে */
+}
