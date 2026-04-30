@@ -1,0 +1,59 @@
+body {
+    font-family: 'Hind Siliguri', 'Inter', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ড্রয়ার ওপেন থাকা অবস্থায় বডি স্ক্রল বন্ধ রাখা */
+body.drawer-open {
+    overflow: hidden;
+}
+
+.app-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+}
+
+.dark ::-webkit-scrollbar { width: 8px; }
+.dark ::-webkit-scrollbar-track { background: #1e293b; }
+.dark ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+
+/* ব্যাক টু টপ বাটনের এনিমেশন */
+#back-to-top {
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* প্রগ্রেস সার্কেল স্টাইল */
+#progress-bar {
+    transition: stroke-dashoffset 100ms linear;
+    stroke-linecap: round; /* প্রগ্রেসের মাথাটা গোল দেখাবে */
+}
+
+/* আইকন এবং সার্কেলকে ঠিকঠাক পজিশন করা */
+#back-to-top svg {
+    display: block;
+}
+
+/* আপনার বাকি CSS আগের মতোই থাকবে */
+#search-container.show {
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

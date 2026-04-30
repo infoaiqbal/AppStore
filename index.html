@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="bn" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic App Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
+
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity"></div>
+
+    <div id="nav-drawer" class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-slate-800 z-50 transform -translate-x-full transition-transform duration-300 shadow-xl border-r dark:border-slate-700">
+        <div class="p-5 border-b dark:border-slate-700 flex justify-between items-center">
+            <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400">Islamic Store</span>
+            <button id="close-drawer" class="text-gray-500 text-3xl leading-none">&times;</button>
+        </div>
+        <ul class="p-4 space-y-2">
+            <li><a href="#" class="block p-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-700 dark:text-white">📖 আল-কুরআন</a></li>
+            <li><a href="#" class="block p-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-700 dark:text-white">📜 হাদিস</a></li>
+            <li><a href="#" class="block p-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-700 dark:text-white">🕌 নামাজের সময়</a></li>
+            <li><a href="#" class="block p-3 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-700 dark:text-white">📿 দোয়া ও জিকির</a></li>
+        </ul>
+    </div>
+
+    <nav class="sticky top-0 z-30 bg-white dark:bg-slate-800 shadow-sm border-b dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <button id="open-drawer" class="p-2 rounded-lg text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400">Islamic Store</div>
+            </div>
+            
+            <div class="flex items-center justify-end flex-1 ml-4 overflow-hidden h-10 relative">
+                <button id="toggle-search" class="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-full transition-all duration-300">
+                    <svg class="w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20C15.9706 20 20 15.9706 20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20Z"></path>
+                        <path d="M18.9299 20.6898C19.4599 22.2898 20.6699 22.4498 21.5999 21.0498C22.4499 19.7698 21.8899 18.7198 20.3499 18.7198C19.2099 18.7098 18.5699 19.5998 18.9299 20.6898Z"></path>
+                    </svg>
+                </button>
+
+                <div id="search-container" class="absolute right-0 top-0 h-full w-0 opacity-0 invisible transition-all duration-300 ease-in-out">
+                    <input type="text" id="searchBar" placeholder="অ্যাপ খুঁজুন..." 
+                           class="w-full h-full px-4 rounded-full bg-gray-100 dark:bg-slate-700 dark:text-white focus:outline-none border border-transparent focus:border-emerald-500">
+                </div>
+            </div>
+
+            <button id="theme-toggle" class="p-2 rounded-full text-gray-600 dark:text-yellow-400">
+                <svg id="sun-icon" class="hidden w-6 h-6 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 18.5C15.5899 18.5 18.5 15.5899 18.5 12C18.5 8.41015 15.5899 5.5 12 5.5C8.41015 5.5 5.5 8.41015 5.5 12C5.5 15.5899 8.41015 18.5 12 18.5Z"></path>
+                    <path d="M19.14 19.14L19.01 19.01M19.01 4.99L19.14 4.86L19.01 4.99ZM4.86 19.14L4.99 19.01L4.86 19.14ZM12 2.08V2V2.08ZM12 22V21.92V22ZM2.08 12H2H2.08ZM22 12H21.92H22ZM4.99 4.99L4.86 4.86L4.99 4.99Z"></path>
+                </svg>
+                <svg id="moon-icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                    <path d="M2.03009 12.42C2.39009 17.57 6.76009 21.76 11.9901 21.99C15.6801 22.15 18.9801 20.43 20.9601 17.72C21.7801 16.61 21.3401 15.87 19.9701 16.12C19.3001 16.24 18.6101 16.29 17.8901 16.26C13.0001 16.06 9.00009 11.97 8.98009 7.13996C8.97009 5.83996 9.24009 4.60996 9.73009 3.48996C10.2701 2.24996 9.62009 1.65996 8.37009 2.18996C4.41009 3.85996 1.70009 7.84996 2.03009 12.42Z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-8 px-4">
+        <h2 class="text-xl font-bold mb-6 dark:text-white border-l-4 border-emerald-500 pl-3">সেরা ইসলামিক অ্যাপস</h2>
+        <div id="app-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6"></div>
+    </main>
+
+    <footer class="bg-white dark:bg-slate-800 border-t dark:border-slate-700 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">Islamic Store</div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">বিশুদ্ধ ইসলামিক অ্যাপের একটি নির্ভরযোগ্য প্ল্যাটফর্ম।</p>
+            <div class="flex justify-center space-x-6 my-6">
+                <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors">ফেসবুক</a>
+                <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors">ইউটিউব</a>
+                <a href="#" class="text-gray-400 hover:text-emerald-600 transition-colors">যোগাযোগ</a>
+            </div>
+            <div class="border-t dark:border-slate-700 pt-6">
+                <div class="flex items-center justify-center space-x-1 flex-wrap">
+                    <p class="text-xs text-gray-500 dark:text-gray-400">&copy; 2026 <b>Asifio</b></p>
+                    <svg class="w-4 h-4 text-emerald-500 fill-none stroke-current" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M8.38 12L10.79 14.42L15.62 9.57996"></path>
+                        <path d="M10.75 2.44995C11.44 1.85995 12.57 1.85995 13.27 2.44995L14.85 3.80995C15.15 4.06995 15.71 4.27995 16.11 4.27995H17.81C18.87 4.27995 19.74 5.14995 19.74 6.20995V7.90995C19.74 8.29995 19.95 8.86995 20.21 9.16995L21.57 10.7499C22.16 11.4399 22.16 12.5699 21.57 13.2699L20.21 14.8499C19.95 15.1499 19.74 15.7099 19.74 16.1099V17.8099C19.74 18.8699 18.87 19.7399 17.81 19.7399H16.11C15.72 19.7399 15.15 19.9499 14.85 20.2099L13.27 21.5699C12.58 22.1599 11.45 22.1599 10.75 21.5699L9.17 20.2099C8.87 19.9499 8.31 19.7399 7.91 19.7399H6.18C5.12 19.7399 4.25 18.8699 4.25 17.8099V16.0999C4.25 15.7099 4.04 15.1499 3.79 14.8499L2.44 13.2599C1.86 12.5699 1.86 11.4499 2.44 10.7599L3.79 9.16995C4.04 8.86995 4.25 8.30995 4.25 7.91995V6.19995C4.25 5.13995 5.12 4.26995 6.18 4.26995H7.91C8.3 4.26995 8.87 4.05995 9.17 3.79995L10.75 2.44995Z"></path>
+                    </svg>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">. সর্বস্বত্ব সংরক্ষিত।</p>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-2">Developed by <span class="text-emerald-600 font-semibold uppercase tracking-wider">Asif Iqbal</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="app-modal" class="fixed inset-0 z-[60] hidden overflow-y-auto">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" id="modal-overlay"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative bg-white dark:bg-slate-800 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden transform transition-all">
+                <div class="h-32 bg-emerald-600 dark:bg-emerald-700 flex items-center justify-end p-6">
+                    <button id="close-modal" class="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                
+                <div class="px-8 pb-8 -mt-12">
+                    <div class="flex items-end space-x-6 mb-6">
+                        <img id="modal-icon" src="" class="w-24 h-24 rounded-2xl border-4 border-white dark:border-slate-800 shadow-lg bg-white">
+                        <div class="flex-1">
+                            <h2 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-white truncate"></h2>
+                            <p id="modal-category" class="text-emerald-600 font-medium"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center py-4 border-y dark:border-slate-700 mb-6 text-center">
+                        <div>
+                            <p id="modal-rating" class="font-bold dark:text-white"></p>
+                            <p class="text-[10px] text-gray-500 uppercase">Rating</p>
+                        </div>
+                        <div>
+                            <p class="font-bold dark:text-white">৫এম+</p>
+                            <p class="text-[10px] text-gray-500 uppercase">Downloads</p>
+                        </div>
+                        <div>
+                            <p class="font-bold dark:text-white">২৫ এমবি</p>
+                            <p class="text-[10px] text-gray-500 uppercase">Size</p>
+                        </div>
+                    </div>
+
+                    <p id="modal-desc" class="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed">
+    </p>
+
+
+                    <div class="mb-6">
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3">Screenshots</p>
+                        <div id="modal-screenshots" class="flex space-x-3 overflow-x-auto pb-2 scrollbar-hide">
+                            </div>
+                    </div>
+
+                    <a id="download-link" href="#" target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 transition-all active:scale-95">
+                        ইন্সটল করুন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+<button id="back-to-top" class="fixed bottom-6 right-6 p-1 rounded-full bg-transparent text-emerald-600 shadow-lg opacity-0 invisible transition-all duration-300 z-50 group">
+    <svg class="w-14 h-14 transform -rotate-90" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6" fill="transparent" class="opacity-20"/>
+        
+        <circle id="progress-bar" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6" fill="transparent" 
+            stroke-dasharray="283" stroke-dashoffset="283" class="transition-all duration-100"/>
+    </svg>
+    
+    <div class="absolute inset-0 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
+</button>
+
+
+    
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
