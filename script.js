@@ -8,6 +8,7 @@ const toggleSearch = document.getElementById('toggle-search');
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
+
 // স্লাইডার ডাটা//
 const sliderData = [
     { img: "slide/3.jpg", link: "#" },
