@@ -8,68 +8,22 @@ const toggleSearch = document.getElementById('toggle-search');
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
+// স্লাইডার ডাটা//
+const sliderData = [
+    { img: "slide/3.jpg", link: "#" },
+    { img: "slide/1.jpg", link: "#" },
+    { img: "slide/2.jpg", link: "#" },
+    { img: "https://via.placeholder.com/1280x720/047857/FFFFFF?text=Slide+2", link: "#" }
+];
+
 // --- ২. অ্যাপ ডেটা ---
 const apps = [
-    { 
-        id: 1, 
-        name: "Al Quran Kareem", 
-        icon: "https://via.placeholder.com/150/065f46/FFFFFF?text=Quran", 
-        rating: 4.9, 
-        category: "আল-কুরআন", 
-        link: "#", 
-        description: "এই অ্যাপটিতে আপনি অর্থসহ আল-কুরআন পড়তে পারবেন এবং তিলাওয়াত শুনতে পারবেন। এতে তাজবীদ শেখার বিশেষ ফিচার রয়েছে।",
-        screenshots: ["https://via.placeholder.com/200x350/065f46/FFFFFF?text=S1", "https://via.placeholder.com/200x350/065f46/FFFFFF?text=S2"] 
-    },
-    { 
-        id: 2, 
-        name: "Muslim Pro", 
-        icon: "icon/Audio.png", 
-        rating: 4.8, 
-        category: "নামাজ ও সময়", 
-        link: "#", 
-        description: "নামাজের সঠিক সময় এবং কিবলার দিক নির্ণয়ের জন্য এটি একটি সেরা অ্যাপ। এতে আজান অ্যালার্মের ব্যবস্থাও আছে।",
-        screenshots: ["ss/ss3.jpg","ss/ss2.jpg","ss/ss1.jpg"] 
-    },
-    { 
-        id: 3, 
-        name: "Hadith BD", 
-        icon: "https://via.placeholder.com/150/047857/FFFFFF?text=Hadith", 
-        rating: 4.7, 
-        category: "হাদিস", 
-        link: "#", 
-        description: "সহীহ বুখারী, মুসলিমসহ গুরুত্বপূর্ণ হাদিস গ্রন্থগুলোর বাংলা অনুবাদ এখন আপনার হাতের মুঠোয়।",
-        screenshots: [] 
-    },
-{ 
-        id: 9, 
-        name: "Mufo", 
-        icon: "https://via.placeholder.com/150/059669/FFFFFF?text=Muslim", 
-        rating: 4.8, 
-        category: "নামাজসময়", 
-        link: "#", 
-        description: "নামাজের সঠিক সময় এবং কিবলার দিক নির্ণয়ের জন্য এটি একটি সেরা অ্যাপ। এতে আজান অ্যালার্মের ব্যবস্থাও আছে।",
-        screenshots: [] 
-    },
-{ 
-        id: 7, 
-        name: "Muslifdm Pro", 
-        icon: "https://via.placeholder.com/150/059669/FFFFFF?text=Muslim", 
-        rating: 4.8, 
-        category: "সময়", 
-        link: "#", 
-        description: "নামাজের সঠিক সময় এবং কিবলার দিক নির্ণয়ের জন্য এটি একটি সেরা অ্যাপ। এতে আজান অ্যালার্মের ব্যবস্থাও আছে।",
-        screenshots: [] 
-    },
-    { 
-        id: 4, 
-        name: "Dua & Zikir", 
-        icon: "icon/Audio.png", 
-        rating: 4.8, 
-        category: "দোয়া", 
-        link: "#", 
-        description: "দৈনন্দিন জীবনের প্রয়োজনীয় দোয়া এবং জিকিরসমূহ অডিওসহ এই অ্যাপে পাওয়া যাবে।",
-        screenshots: [] 
-    }
+    { id: 1, name: "Al Quran Kareem", icon: "https://via.placeholder.com/150/065f46/FFFFFF?text=Quran", rating: 4.9, category: "আল-কুরআন", link: "#", description: "এই অ্যাপটিতে আপনি অর্থসহ আল-কুরআন পড়তে পারবেন এবং তিলাওয়াত শুনতে পারবেন। এতে তাজবীদ শেখার বিশেষ ফিচার রয়েছে।", screenshots: ["https://via.placeholder.com/200x350/065f46/FFFFFF?text=S1", "https://via.placeholder.com/200x350/065f46/FFFFFF?text=S2"] },
+    { id: 2, name: "Muslim Pro", icon: "icon/Audio.png", rating: 4.8, category: "নামাজ ও সময়", link: "#", description: "নামাজের সঠিক সময় এবং কিবলার দিক নির্ণয়ের জন্য এটি একটি সেরা অ্যাপ। এতে আজান অ্যালার্মের ব্যবস্থাও আছে।", screenshots: ["ss/ss3.jpg","ss/ss2.jpg","ss/ss1.jpg"] },
+    { id: 3, name: "Hadith BD", icon: "https://via.placeholder.com/150/047857/FFFFFF?text=Hadith", rating: 4.7, category: "হাদিস", link: "#", description: "সহীহ বুখারী, মুসলিমসহ গুরুত্বপূর্ণ হাদিস গ্রন্থগুলোর বাংলা অনুবাদ এখন আপনার হাতের মুঠোয়।", screenshots: [] },
+    { id: 9, name: "Mufo", icon: "https://via.placeholder.com/150/059669/FFFFFF?text=Muslim", rating: 4.8, category: "নামাজসময়", link: "#", description: "নামাজের সঠিক সময় এবং কিবলার দিক নির্ণয়ের জন্য এটি একটি সেরা অ্যাপ। এতে আজান অ্যালার্মের ব্যবস্থাও আছে।", screenshots: [] },
+    { id: 7, name: "Muslifdm Pro", icon: "https://via.placeholder.com/150/059669/FFFFFF?text=Muslim", rating: 4.8, category: "সময়", link: "#", description: "নামাজের সঠিক সময় এবং কিবলার দিক নির্ণয়ের জন্য এটি একটি সেরা অ্যাপ। এতে আজান অ্যালার্মের ব্যবস্থাও আছে।", screenshots: [] },
+    { id: 4, name: "Dua & Zikir", icon: "icon/Audio.png", rating: 4.8, category: "দোয়া", link: "#", description: "দৈনন্দিন জীবনের প্রয়োজনীয় দোয়া এবং জিকিরসমূহ অডিওসহ এই অ্যাপে পাওয়া যাবে।", screenshots: [] }
 ];
 
 // --- ৩. থিম টগল লজিক ---
@@ -77,11 +31,11 @@ function updateIcons(isDark) {
     const sunIcon = document.getElementById('sun-icon');
     const moonIcon = document.getElementById('moon-icon');
     if (isDark) {
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
+        sunIcon?.classList.remove('hidden');
+        moonIcon?.classList.add('hidden');
     } else {
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
+        sunIcon?.classList.add('hidden');
+        moonIcon?.classList.remove('hidden');
     }
 }
 
@@ -136,12 +90,19 @@ function renderDrawer() {
     listContainer.innerHTML = htmlContent;
 }
 
+// --- ৫. ফিল্টার এবং সার্চ লজিক ---
 function filterByCategory(cat) {
-    displayApps(cat === 'সব অ্যাপ' ? apps : apps.filter(a => a.category === cat));
-    toggleDrawer();
+    const targetCategory = cat.trim();
+    const filtered = (targetCategory === 'সব অ্যাপ') ? apps : apps.filter(app => app.category.trim() === targetCategory);
+    displayApps(filtered);
+    
+    // সার্চ ইনপুট ক্লিয়ার করা যাতে কনফিউশন না হয়
+    if (searchInput) searchInput.value = "";
+    
+    // ড্রয়ার বন্ধ করা
+    if (!navDrawer.classList.contains('-translate-x-full')) toggleDrawer();
 }
 
-// --- ৫. সার্চ লজিক ---
 function closeSearch() {
     searchContainer.classList.remove('w-full', 'opacity-100', 'visible', 'show');
     searchContainer.classList.add('w-0', 'opacity-0', 'invisible');
@@ -218,7 +179,7 @@ document.getElementById('close-modal').onclick = () => {
     document.body.classList.remove('overflow-hidden');
 };
 
-// --- ৭. হিস্ট্রি এবং সোয়াইপ লজিক ---
+// --- ৭. হিস্ট্রি ম্যানেজমেন্ট ---
 function saveToHistory(app) {
     let history = JSON.parse(localStorage.getItem('appHistory') || '[]');
     if (!history.find(h => h.id === app.id)) {
@@ -282,38 +243,80 @@ function deleteHistory(index) {
     renderHistoryList();
 }
 
-// --- ৮. ইনিশিয়াল লোড ---
-displayApps(apps);
+// --- ৮. স্লাইড শো লজিক ---
+let currentSlide = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+let autoPlay;
 
+function initSlider() {
+    const wrapper = document.getElementById('slider-wrapper');
+    const dotsContainer = document.getElementById('slider-dots');
+    if (!wrapper || !dotsContainer) return;
+    
+    wrapper.innerHTML = sliderData.map((slide, i) => `
+        <a href="${slide.link}" class="slide ${i === 0 ? 'active' : ''}">
+            <img src="${slide.img}" class="w-full h-full object-cover">
+        </a>
+    `).join('');
 
-// back to top
+    dotsContainer.innerHTML = sliderData.map((_, i) => `
+        <div class="w-2 h-2 rounded-full bg-white/50 transition-all ${i === 0 ? 'w-6 bg-white' : ''}"></div>
+    `).join('');
+
+    function showSlide(index) {
+        const slides = document.querySelectorAll('.slide');
+        const dots = dotsContainer.children;
+        if (!slides.length) return;
+        
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.replace('w-6', 'w-2');
+        dots[currentSlide].classList.replace('bg-white', 'bg-white/50');
+
+        currentSlide = (index + slides.length) % slides.length;
+
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.replace('w-2', 'w-6');
+        dots[currentSlide].classList.replace('bg-white/50', 'bg-white');
+    }
+
+    autoPlay = setInterval(() => showSlide(currentSlide + 1), 3000);
+
+    const container = document.querySelector('.slider-container');
+    container.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        clearInterval(autoPlay);
+    }, {passive: true});
+
+    container.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) showSlide(currentSlide + 1);
+        else if (touchEndX - touchStartX > 50) showSlide(currentSlide - 1);
+        autoPlay = setInterval(() => showSlide(currentSlide + 1), 3000);
+    }, {passive: true});
+}
+
+// --- ৯. স্ক্রল লজিক ---
 const backToTop = document.getElementById('back-to-top');
 const progressBar = document.getElementById('progress-bar');
-const totalLength = 283; // সার্কেলের পরিধি
+const totalLength = 283;
 
 window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    
-    // ১. প্রগ্রেস বার আপডেট
     if (docHeight > 0) {
         const progress = scrollTop / docHeight;
         const offset = totalLength - (progress * totalLength);
-        progressBar.style.strokeDashoffset = offset;
+        if (progressBar) progressBar.style.strokeDashoffset = offset;
     }
-
-    // ২. বাটন দেখানো (Show/Hide)
-    if (scrollTop > 300) {
-        backToTop.classList.add('show');
-    } else {
-        backToTop.classList.remove('show');
-    }
+    if (scrollTop > 300) backToTop?.classList.add('show');
+    else backToTop?.classList.remove('show');
 });
 
-// ক্লিক করলে টপে যাওয়া
-backToTop.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+backToTop?.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+// --- ১০. মেগা ইনিশিয়াল লোড (সব এখানে শুরু হবে) ---
+document.addEventListener('DOMContentLoaded', () => {
+    displayApps(apps); // অ্যাপ লোড
+    initSlider();      // স্লাইডার শুরু (ফিক্সড)
 });
