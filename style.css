@@ -79,29 +79,16 @@ body.drawer-open {
     flex-shrink: 0;
 }
 
-/* প্রগ্রেস সার্কেল (SVG) শুরুতে লুকানো থাকবে যাতে ডাবল শেপ না দেখা যায় */
-.icon-box svg {
-    pointer-events: none;
-    opacity: 0; /* ক্লিক করার আগে ইনভিজিবল */
-    transition: opacity 0.3s ease;
-}
-
-/* যখন এনিমেশন শুরু হবে (Class: animating) তখন SVG দেখা যাবে */
-.icon-box.animating svg {
-    opacity: 1;
-}
-
 /* শুরুতে আইকন স্কয়ার রাখার জন্য border-radius কমানো হয়েছে এবং এনিমেশন স্লো করা হয়েছে */
 #modal-icon {
     border-radius: 1.25rem; 
     transition: border-radius 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     object-fit: cover;
-    z-index: 10;
 }
 
-/* এনিমেশন চলাকালীন আইকন গোল হয়ে যাবে */
-.icon-box.animating #modal-icon {
-    border-radius: 50%;
+/* প্রগ্রেস সার্কেল (SVG) */
+.icon-box svg {
+    pointer-events: none;
 }
 
 .track {
@@ -111,7 +98,7 @@ body.drawer-open {
 .snake {
     stroke-width: 3.5;
     stroke-linecap: round;
-    /* সাপের মতো ঢেউ খেলানোর গতি কমানোর জন্য transition বাড়ানো হয়েছে */
+    /* সাপের মতো ঢেউ খেলানোর গতি কমানোর জন্য transition ভ্যালু বাড়ানো হয়েছে */
     transition: d 0.2s linear; 
 }
 

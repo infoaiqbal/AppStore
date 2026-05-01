@@ -168,7 +168,7 @@ searchInput.addEventListener('input', (e) => {
     displayApps(apps.filter(app => app.name.toLowerCase().includes(term)));
 });
 
-// --- ৬. অ্যাপ এবং মোডাল লজিক ---
+// --- ৬. অ্যাপ এবং মোডাল লজিক (ইন্সটল এনিমেশন সহ) ---
 function openAppDetails(index) {
     const app = apps[index];
     if(!app) return;
@@ -190,11 +190,9 @@ function openAppDetails(index) {
     const modalIcon = document.getElementById('modal-icon');
     const snakePath = document.querySelector('.snake');
     const installBtn = document.getElementById('download-link');
-    const iconBox = document.querySelector('.icon-box'); // আইকন বক্স সিলেক্টর
     
-    // রিসেট: ক্লিক করার আগে স্কয়ার থাকবে এবং 'animating' ক্লাস থাকবে না (SVG লুকানো থাকবে)
+    // রিসেট: ক্লিক করার আগে স্কয়ার থাকবে
     modalIcon.style.borderRadius = "1.25rem"; 
-    iconBox.classList.remove('animating'); 
     if(snakePath) snakePath.setAttribute("d", "");
     installBtn.innerText = "ইন্সটল করুন";
     installBtn.disabled = false;
@@ -204,8 +202,8 @@ function openAppDetails(index) {
         installBtn.disabled = true;
         installBtn.innerText = "অপেক্ষা করুন...";
         
-        // ক্লিক করার সাথে সাথে 'animating' ক্লাস যোগ করা (যাতে CSS এর মাধ্যমে SVG দৃশ্যমান হয়)
-        iconBox.classList.add('animating');
+        // ক্লিক করার সাথে সাথে গোল হবে
+        modalIcon.style.borderRadius = "50%"; 
         
         catEl.classList.add('hidden');
         progText.classList.remove('hidden');
@@ -215,6 +213,7 @@ function openAppDetails(index) {
 
         function animate() {
             if (prog < 100) {
+                // স্পিড কমানো হয়েছে (০.৬ থেকে ০.৩ করা হয়েছে)
                 prog += 0.3; 
                 off++;
                 
@@ -239,7 +238,6 @@ function openAppDetails(index) {
                     window.open(app.link, '_blank');
                     document.getElementById('app-modal').classList.add('hidden');
                     document.body.classList.remove('overflow-hidden');
-                    iconBox.classList.remove('animating'); // এনিমেশন শেষে রিসেট
                 }, 500);
             }
         }
