@@ -8,14 +8,14 @@ const toggleSearch = document.getElementById('toggle-search');
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
-// স্লাইডার ডাটা//
+// স্লাইডার ডাটা
 const sliderData = [
     { img: "slide/3.jpg", link: "#" },
     { img: "slide/1.jpg", link: "#" },
     { img: "slide/2.jpg", link: "#" }
 ];
 
-// --- ২. অ্যাপ ডেটা (Size এবং Downloads যোগ করা হয়েছে) ---
+// --- ২. অ্যাপ ডেটা ---
 const apps = [
     { 
         id: 1, 
@@ -191,8 +191,8 @@ function openAppDetails(index) {
     const snakePath = document.querySelector('.snake');
     const installBtn = document.getElementById('download-link');
     
-    // রিসেট
-    modalIcon.style.borderRadius = "1rem";
+    // রিসেট: ক্লিক করার আগে স্কয়ার থাকবে
+    modalIcon.style.borderRadius = "1.25rem"; 
     if(snakePath) snakePath.setAttribute("d", "");
     installBtn.innerText = "ইন্সটল করুন";
     installBtn.disabled = false;
@@ -201,16 +201,20 @@ function openAppDetails(index) {
     installBtn.onclick = () => {
         installBtn.disabled = true;
         installBtn.innerText = "অপেক্ষা করুন...";
+        
+        // ক্লিক করার সাথে সাথে গোল হবে
+        modalIcon.style.borderRadius = "50%"; 
+        
         catEl.classList.add('hidden');
         progText.classList.remove('hidden');
-        modalIcon.style.borderRadius = "50%";
 
         let prog = 0, off = 0;
         const toBengali = n => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
 
         function animate() {
             if (prog < 100) {
-                prog += 0.6; // স্পিড
+                // স্পিড কমানো হয়েছে (০.৬ থেকে ০.৩ করা হয়েছে)
+                prog += 0.3; 
                 off++;
                 
                 if(snakePath) {

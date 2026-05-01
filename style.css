@@ -72,16 +72,17 @@ body.drawer-open {
     object-fit: cover;
 }
 
-/* --- নতুন মোডাল এবং ডাউনলোড এনিমেশন স্টাইল (যোগ করা হয়েছে) --- */
+/* --- নতুন মোডাল এবং ডাউনলোড এনিমেশন স্টাইল --- */
 
-/* আইকন বক্স এবং গোল হওয়ার এনিমেশন */
 .icon-box {
     position: relative;
     flex-shrink: 0;
 }
 
+/* শুরুতে আইকন স্কয়ার রাখার জন্য border-radius কমানো হয়েছে এবং এনিমেশন স্লো করা হয়েছে */
 #modal-icon {
-    transition: border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1.25rem; 
+    transition: border-radius 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     object-fit: cover;
 }
 
@@ -97,8 +98,8 @@ body.drawer-open {
 .snake {
     stroke-width: 3.5;
     stroke-linecap: round;
-    /* সাপের মতো ঢেউ খেলানোর জন্য স্মুথ ট্রানজিশন */
-    transition: d 0.1s linear; 
+    /* সাপের মতো ঢেউ খেলানোর গতি কমানোর জন্য transition ভ্যালু বাড়ানো হয়েছে */
+    transition: d 0.2s linear; 
 }
 
 /* ডাউনলোড পার্সেন্টেজ টেক্সট এনিমেশন */
