@@ -1,14 +1,15 @@
+/* --- বেসিক এবং ফন্ট সেটআপ --- */
 body {
     font-family: 'Hind Siliguri', 'Inter', sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
-
 
 /* ড্রয়ার ওপেন থাকা অবস্থায় বডি স্ক্রল বন্ধ রাখা */
 body.drawer-open {
     overflow: hidden;
 }
 
+/* --- অ্যাপ কার্ড স্টাইল --- */
 .app-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -17,11 +18,12 @@ body.drawer-open {
     transform: translateY(-5px);
 }
 
+/* --- স্ক্রলবার স্টাইল (ডার্ক মোড) --- */
 .dark ::-webkit-scrollbar { width: 8px; }
 .dark ::-webkit-scrollbar-track { background: #1e293b; }
 .dark ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
 
-/* ব্যাক টু টপ বাটনের এনিমেশন */
+/* --- ব্যাক টু টপ বাটন --- */
 #back-to-top {
     transform: translateY(20px);
     transition: all 0.3s ease;
@@ -33,24 +35,78 @@ body.drawer-open {
     transform: translateY(0);
 }
 
-/* প্রগ্রেস সার্কেল স্টাইল */
 #progress-bar {
     transition: stroke-dashoffset 100ms linear;
-    stroke-linecap: round; /* প্রগ্রেসের মাথাটা গোল দেখাবে */
+    stroke-linecap: round;
 }
 
-/* আইকন এবং সার্কেলকে ঠিকঠাক পজিশন করা */
-#back-to-top svg {
-    display: block;
-}
-
-/* আপনার বাকি CSS আগের মতোই থাকবে */
+/* --- সার্চ কন্টেইনার --- */
 #search-container.show {
     width: 100%;
     opacity: 1;
     visibility: visible;
 }
 
+/* --- স্লাইডার এনিমেশন --- */
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1.2s ease;
+    transform: scale(1.05);
+}
+.slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.slider-container {
+    aspect-ratio: 327 / 121 !important;
+    width: 100%;
+    height: auto;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- নতুন মোডাল এবং ডাউনলোড এনিমেশন স্টাইল (যোগ করা হয়েছে) --- */
+
+/* আইকন বক্স এবং গোল হওয়ার এনিমেশন */
+.icon-box {
+    position: relative;
+    flex-shrink: 0;
+}
+
+#modal-icon {
+    transition: border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+}
+
+/* প্রগ্রেস সার্কেল (SVG) */
+.icon-box svg {
+    pointer-events: none;
+}
+
+.track {
+    stroke-width: 3.5;
+}
+
+.snake {
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    /* সাপের মতো ঢেউ খেলানোর জন্য স্মুথ ট্রানজিশন */
+    transition: d 0.1s linear; 
+}
+
+/* ডাউনলোড পার্সেন্টেজ টেক্সট এনিমেশন */
+#progress-text {
+    transition: opacity 0.3s ease;
+}
+
+/* স্ক্রিনশট গ্যালারি স্ক্রলবার হাইড */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
@@ -59,28 +115,9 @@ body.drawer-open {
     scrollbar-width: none;
 }
 
-/* স্লাইডার এনিমেশন */
-.slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 1s ease-in-out, transform 1.2s ease;
-    transform: scale(1.05); /* হালকা জুম ইফেক্ট */
-}
-.slide.active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.slider-container {
-    aspect-ratio: 327 / 121 !important; /* এটি নির্দিষ্ট রেশিও নিশ্চিত করবে */
-    width: 100%;
-    height: auto;
-}
-
-/* স্লাইডারের ভেতর ছবি যেন চ্যাপ্টা না হয়ে যায় */
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* এটি ছবিকে সুন্দরভাবে ফ্রেমের ভেতরে রাখবে */
+/* বাটন এক্টিভ স্টেট */
+#download-link:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+    background-color: #059669; /* emerald-700 */
 }
