@@ -97,10 +97,7 @@ function filterByCategory(cat) {
     const filtered = (targetCategory === 'সব অ্যাপ') ? apps : apps.filter(app => app.category.trim() === targetCategory);
     displayApps(filtered);
     
-    // সার্চ ইনপুট ক্লিয়ার করা যাতে কনফিউশন না হয়
     if (searchInput) searchInput.value = "";
-    
-    // ড্রয়ার বন্ধ করা
     if (!navDrawer.classList.contains('-translate-x-full')) toggleDrawer();
 }
 
@@ -153,12 +150,14 @@ function displayApps(appList) {
 
 function openAppDetails(index) {
     const app = apps[index];
+    if(!app) return; // অ্যাপ না পাওয়া গেলে ফিরে যাবে
+
     document.getElementById('modal-title').innerText = app.name;
     document.getElementById('modal-category').innerText = app.category;
     document.getElementById('modal-rating').innerText = app.rating + " ★";
     document.getElementById('modal-icon').src = app.icon;
     
-    const descEl = document.querySelector('#app-modal p.text-gray-600') || document.getElementById('modal-desc'); 
+    const descEl = document.getElementById('modal-desc'); 
     if (descEl) descEl.innerText = app.description || "এই অ্যাপটি সম্পর্কে কোনো তথ্য নেই।";
 
     document.getElementById('download-link').onclick = () => {
@@ -167,7 +166,7 @@ function openAppDetails(index) {
     };
 
     const ss = document.getElementById('modal-screenshots');
-    ss.innerHTML = app.screenshots.length > 0 
+    ss.innerHTML = app.screenshots && app.screenshots.length > 0 
         ? app.screenshots.map(s => `<img src="${s}" class="w-32 h-56 rounded-xl flex-shrink-0 shadow-sm border dark:border-slate-700">`).join('') 
         : '<p class="text-gray-400 text-xs">কোনো স্ক্রিনশট নেই</p>';
 
@@ -197,7 +196,14 @@ function toggleHistory(show) {
         historyPanel.className = 'fixed top-0 left-0 h-full w-64 bg-white dark:bg-slate-800 z-[70] transform -translate-x-full transition-transform duration-300 shadow-2xl border-r dark:border-slate-700';
         document.body.appendChild(historyPanel);
     }
-    show ? (renderHistoryList(), historyPanel.classList.remove('-translate-x-full')) : historyPanel.classList.add('-translate-x-full');
+    
+    if (show) {
+        renderHistoryList();
+        historyPanel.classList.remove('-translate-x-full');
+        if (!navDrawer.classList.contains('-translate-x-full')) toggleDrawer();
+    } else {
+        historyPanel.classList.add('-translate-x-full');
+    }
 }
 
 function renderHistoryList() {
@@ -212,20 +218,25 @@ function renderHistoryList() {
         </div>
         <div class="p-2 space-y-3 overflow-y-auto h-[calc(100%-70px)] scrollbar-hide">
             ${history.length === 0 ? '<p class="text-center text-gray-400 mt-10 text-xs">কোনো হিস্ট্রি নেই</p>' : 
-              history.map((app, i) => `
-                <div class="relative bg-red-500 rounded-2xl overflow-hidden h-16 shadow-sm">
-                    <button onclick="deleteHistory(${i})" class="absolute inset-y-0 right-0 flex items-center justify-center w-16 text-white active:scale-90 transition-transform">
+              history.map((app, i) => {
+                // আসল অ্যাপ লিস্ট থেকে ইনডেক্স খুঁজে বের করা
+                const actualIndex = apps.findIndex(a => a.id === app.id);
+                return `
+                <div class="relative bg-red-500 rounded-2xl overflow-hidden h-16 shadow-sm cursor-pointer">
+                    <button onclick="event.stopPropagation(); deleteHistory(${i})" class="absolute inset-y-0 right-0 flex items-center justify-center w-16 text-white active:scale-90 transition-transform z-10">
                         ${deleteIcon}
                     </button>
-                    <div class="absolute inset-0 bg-white dark:bg-slate-900 p-2 flex items-center justify-between transition-transform duration-200 touch-pan-x border dark:border-slate-800 rounded-2xl" 
+                    <div onclick="openAppDetails(${actualIndex}); toggleHistory(false);" 
+                         class="absolute inset-0 bg-white dark:bg-slate-900 p-2 flex items-center justify-between transition-transform duration-200 touch-pan-x border dark:border-slate-800 rounded-2xl z-20" 
                          style="transform: translateX(0)" ontouchstart="handleTS(event)" ontouchmove="handleTM(event, this)">
                         <div class="flex items-center space-x-3 pointer-events-none">
                             <img src="${app.icon}" class="w-10 h-10 rounded-lg">
                             <p class="text-[11px] font-bold dark:text-white truncate w-24">${app.name}</p>
                         </div>
-                        <a href="${app.link}" class="bg-emerald-600 text-white text-[9px] px-2 py-1 rounded-lg font-bold">Install</a>
+                        <span class="bg-emerald-600 text-white text-[9px] px-2 py-1 rounded-lg font-bold">Details</span>
                     </div>
-                </div>`).join('')}
+                </div>`;
+              }).join('')}
         </div>`;
 }
 
@@ -316,8 +327,8 @@ window.addEventListener('scroll', () => {
 
 backToTop?.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 
-// --- ১০. মেগা ইনিশিয়াল লোড (সব এখানে শুরু হবে) ---
+// --- ১০. ইনিশিয়াল লোড ---
 document.addEventListener('DOMContentLoaded', () => {
-    displayApps(apps); // অ্যাপ লোড
-    initSlider();      // স্লাইডার শুরু (ফিক্সড)
+    displayApps(apps); 
+    initSlider();     
 });
