@@ -194,6 +194,11 @@ function openAppDetails(index) {
     // রিসেট: ক্লিক করার আগে স্কয়ার থাকবে
     modalIcon.style.borderRadius = "1.25rem"; 
     if(snakePath) snakePath.setAttribute("d", "");
+    
+    // ক্লিক করার আগে SVG ট্র্যাকার সার্কেল লুকিয়ে রাখা
+    const svgBox = document.querySelector('.icon-box svg');
+    if(svgBox) svgBox.classList.add('hidden');
+
     installBtn.innerText = "ইন্সটল করুন";
     installBtn.disabled = false;
 
@@ -204,6 +209,10 @@ function openAppDetails(index) {
         
         // ক্লিক করার সাথে সাথে গোল হবে
         modalIcon.style.borderRadius = "50%"; 
+        
+        // ক্লিক করার পর অ্যানিমেশন সার্কেলটি দৃশ্যমান হবে
+        const svgBox = document.querySelector('.icon-box svg');
+        if(svgBox) svgBox.classList.remove('hidden');
         
         catEl.classList.add('hidden');
         progText.classList.remove('hidden');

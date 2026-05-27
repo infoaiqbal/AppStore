@@ -20,7 +20,7 @@ body.drawer-open {
 
 /* --- স্ক্রলবার স্টাইল (ডার্ক মোড) --- */
 .dark ::-webkit-scrollbar { width: 8px; }
-.dark ::-webkit-scrollbar-track { background: #1e293b; }
+.dark ::-webkit-scrollbar-track { background: rgba(30, 41, 59, 1); }
 .dark ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
 
 /* --- ব্যাক টু টপ বাটন --- */
